@@ -1,0 +1,129 @@
+:root{
+  --text-color: #DBE4EF;
+  --card-front-color: #144480;
+  --card-back-color: #00F4BF;
+}
+
+/* box sizing global */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body{
+  margin: 0;
+  font-family: 'Bai Jamjuree', sans-serif;
+  background: url('img/bg-desktop.webp') no-repeat center/cover;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+/* GRID do container (confere com id="container") */
+#container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* cada card */
+.cartao{
+  width: 100%;
+  height: 20rem;
+  perspective: 1000px; /* necessário para flip 3D */
+  margin: 0;
+}
+
+/* wrapper das faces */
+.cartao__conteudo {
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+/* título */
+.cartao__conteudo h3{
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  margin: 0;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--text-color);
+  font-size: 0.95rem;
+  color: var(--text-color);
+  background: rgba(0,0,0,0.06);
+  z-index: 2;
+  backface-visibility: hidden;
+}
+
+/* texto base */
+.cartao__conteudo p{
+  margin: 0;
+  padding: 2rem;
+  padding-top: 4rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* frente e verso ocupam todo o espaço */
+.cartao__conteudo__pergunta,
+.cartao__conteudo__resposta{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* evita texto espelhado visível */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 2rem;
+}
+
+/* estilos específicos */
+.cartao__conteudo__pergunta {
+    background-color: var(--card-front-color);
+    color: var(--text-color);
+}
+
+.cartao__conteudo__resposta {
+    background-color: rgba(0, 244, 191, 0.2);
+    border: 4px solid var(--card-back-color);
+    color: var(--card-back-color);
+    transform: rotateY(180deg);
+}
+
+/* classe que o JS trocará: is-flipped */
+.cartao.is-flipped .cartao__conteudo{
+  transform: rotateY(180deg);
+}
+
+/* footer */
+footer{
+  background: #000;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p{
+  margin: 0;
+  font-size: 0.65rem;
+}
+
+/* mobile */
+@media (max-width: 560px){
+  body{ background: url('img/bg-mobile.webp') no-repeat center/cover; }
+  .cartao{ height: 16rem; }
+  .cartao__conteudo p{ font-size: 3.2vw; padding-top: 5vw; }
+  .cartao__conteudo h3{ font-size: 3.5vw; }
+}
